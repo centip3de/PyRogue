@@ -9,7 +9,6 @@ from movement import *
 from collision import *
 
 RESOURCES = sdl2.ext.Resources(__file__, '../resources')
-TILES = sdl2.ext.Resources(__file__, '../resources/tiles')
 
 class SoftwareRenderer(sdl2.ext.SoftwareSpriteRenderSystem):
     def __init__(self, window):
