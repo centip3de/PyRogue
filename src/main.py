@@ -42,10 +42,10 @@ def main():
     world.add_system(spriterenderer)
 
     # Currently our player is the bunny picture.
-    player = Player(world, sprite, 200, 0)
+    player = Player(world, sprite, 200, 200)
     player_speed = 2
 
-    bricks = Tile(world, factory, 'bricks', 0, 0)
+    bricks = Tile(world, factory, 'bricks', 200, 200)
 
     # Main event loop
     running = True
