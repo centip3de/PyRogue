@@ -1,12 +1,15 @@
+
 import sys
 import sdl2
 import sdl2.ext
 
+from Tile import Tile
 from player import Player
 from movement import *
 from collision import *
 
 RESOURCES = sdl2.ext.Resources(__file__, '../resources')
+TILES = sdl2.ext.Resources(__file__, '../resources/tiles')
 
 class SoftwareRenderer(sdl2.ext.SoftwareSpriteRenderSystem):
     def __init__(self, window):
@@ -17,7 +20,7 @@ class SoftwareRenderer(sdl2.ext.SoftwareSpriteRenderSystem):
         super(SoftwareRenderer, self).render(components)
 
 def main():
-    sdl2.ext.init() 
+    sdl2.ext.init()
 
     # Create the window
     window = sdl2.ext.Window("Foo", size=(800, 600))
@@ -26,7 +29,6 @@ def main():
     # Create the spirte factory and the sprite for the player
     factory         = sdl2.ext.SpriteFactory(sdl2.ext.SOFTWARE)
     sprite          = factory.from_image(RESOURCES.get_path("random.bmp"))
-
 
     # Create the worl and spriterenderer system
     world           = sdl2.ext.World()
@@ -39,13 +41,15 @@ def main():
     world.add_system(movement)
     world.add_system(spriterenderer)
 
-    # Currently our player is the bunny picture. 
+    # Currently our player is the bunny picture.
     player = Player(world, sprite, 200, 0)
     player_speed = 2
 
+    bricks = Tile(world, factory, 'bricks', 0, 0)
+
     # Main event loop
     running = True
-    
+
     while(running):
 
         events = sdl2.ext.get_events()
@@ -60,7 +64,7 @@ def main():
                     player.velocity.vy = -player_speed
 
                 elif event.key.keysym.sym == sdl2.SDLK_DOWN:
-                    player.velocity.vy = player_speed 
+                    player.velocity.vy = player_speed
 
                 elif event.key.keysym.sym == sdl2.SDLK_LEFT:
                     player.velocity.vx = -player_speed
