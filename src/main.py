@@ -4,6 +4,7 @@ import sdl2.ext
 
 from player import Player
 from movement import *
+from collision import *
 
 RESOURCES = sdl2.ext.Resources(__file__, '../resources')
 
@@ -31,13 +32,16 @@ def main():
     world           = sdl2.ext.World()
     spriterenderer  = SoftwareRenderer(window)
     movement        = MovementSystem(0, 0, 800, 600)
+    collision       = CollisionSystem(0, 0, 800, 600)
 
     # Add all systems to the world
+    world.add_system(collision)
     world.add_system(movement)
     world.add_system(spriterenderer)
 
     # Currently our player is the bunny picture. 
     player = Player(world, sprite, 200, 0)
+    player_speed = 2
 
     # Main event loop
     running = True
@@ -51,6 +55,24 @@ def main():
                 running = False
                 break
 
+            if event.type == sdl2.SDL_KEYDOWN:
+                if event.key.keysym.sym == sdl2.SDLK_UP:
+                    player.velocity.vy = -player_speed
+
+                elif event.key.keysym.sym == sdl2.SDLK_DOWN:
+                    player.velocity.vy = player_speed 
+
+                elif event.key.keysym.sym == sdl2.SDLK_LEFT:
+                    player.velocity.vx = player_speed
+
+                elif event.key.keysym.sym == sdl2.SDLK_RIGHT:
+                    player.velocity.vx = -player_speed
+
+            elif event.type == sdl2.SDL_KEYUP:
+                player.velocity.vy = 0
+                player.velocity.vx = 0
+
+        sdl2.SDL_Delay(10)
         world.process()
 
     return 0
