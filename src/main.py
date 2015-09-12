@@ -3,6 +3,7 @@ import sdl2
 import sdl2.ext
 
 from player import Player
+from movement import *
 
 RESOURCES = sdl2.ext.Resources(__file__, '../resources')
 
@@ -22,12 +23,17 @@ def main():
     window.show()
 
     # Create the spirte factory and the sprite for the player
-    factory = sdl2.ext.SpriteFactory(sdl2.ext.SOFTWARE)
-    sprite = factory.from_image(RESOURCES.get_path("random.bmp"))
+    factory         = sdl2.ext.SpriteFactory(sdl2.ext.SOFTWARE)
+    sprite          = factory.from_image(RESOURCES.get_path("random.bmp"))
+
 
     # Create the worl and spriterenderer system
-    world = sdl2.ext.World()
-    spriterenderer = SoftwareRenderer(window)
+    world           = sdl2.ext.World()
+    spriterenderer  = SoftwareRenderer(window)
+    movement        = MovementSystem(0, 0, 800, 600)
+
+    # Add all systems to the world
+    world.add_system(movement)
     world.add_system(spriterenderer)
 
     # Currently our player is the bunny picture. 
