@@ -63,10 +63,10 @@ def main():
                     player.velocity.vy = player_speed 
 
                 elif event.key.keysym.sym == sdl2.SDLK_LEFT:
-                    player.velocity.vx = player_speed
+                    player.velocity.vx = -player_speed
 
                 elif event.key.keysym.sym == sdl2.SDLK_RIGHT:
-                    player.velocity.vx = -player_speed
+                    player.velocity.vx = player_speed
 
             elif event.type == sdl2.SDL_KEYUP:
                 player.velocity.vy = 0
