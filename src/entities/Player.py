@@ -4,6 +4,7 @@ from components.Velocity import Velocity
 from entities.PlayerData import PlayerData
 from entities.PlayerData import Equippable
 from components.Position import Position
+from components.Stats import Stats
 from entities.Item       import WeaponTypes
 from entities.Item       import ConsumableTypes
 
@@ -15,6 +16,7 @@ class Player(sdl2.ext.Entity):
         self.position           = Position(x, y)
         self.sprite.depth       = 2
         self.playerdata         = PlayerData()
+        self.stats = Stats(50, 2)
 
     def take_damage(self, amount):
         self.playerdata.health -= amount

@@ -1,5 +1,6 @@
 import sdl2.ext
 
+from components.Target import Target
 from components.Position import Position
 from entities.Tile import Tile
 from entities.Enemy import Enemy
@@ -23,7 +24,9 @@ class PlayerMovementSystem(sdl2.ext.Applicator):
             ty = type(entity)
 
             if ty is Enemy:
-                self.player.target = entity
+                print('Setting player target')
+                self.player.target = Target(entity.stats, entity)
+                move = False
 
         if move:
             self.player.position = Position(x, y)

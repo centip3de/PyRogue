@@ -40,13 +40,14 @@ def main():
     movement        = MovementSystem(0, 0, 960, 640)
     playerMovement  = PlayerMovementSystem()
     collision       = CollisionSystem()
+    battleSystem = BattleSystem()
 
     # Add all systems to the world
     world.add_system(playerMovement)
     world.add_system(collision)
     world.add_system(movement)
     world.add_system(spriterenderer)
-    world.add_system(BattleSystem())
+    world.add_system(battleSystem)
 
     # Test map generation
     grid = mapGen.buildMap(world, factory, 4)
@@ -59,6 +60,8 @@ def main():
     playerTile = random.choice(grid.tiles)
     player = Player(world, factory, playerTile.position.x, playerTile.position.y)
     player_speed = 1
+
+    battleSystem.player = player
 
     playerMovement.player = player
     playerMovement.grid = grid
