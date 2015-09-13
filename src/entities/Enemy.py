@@ -2,6 +2,7 @@ import sdl2.ext
 import random
 from components.Stats import Stats
 from components.Position import Position
+from entities.Tile import Tile
 from entities.Item import DataTypes
 
 RESOURCES = sdl2.ext.Resources(__file__, "../../resources")
@@ -31,7 +32,7 @@ class Enemy(sdl2.ext.Entity):
                 x = self.position.x
                 y = self.position.y - 1
 
-            if grid.hasTileAt(x, y):
+            if any([type(entity) is Tile for entity in grid.entitiesAt(x, y)]):
                 self.position = Position(x, y)
                 break
 
