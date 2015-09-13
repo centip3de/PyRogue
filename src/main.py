@@ -1,6 +1,7 @@
 import sys
 import sdl2
 import sdl2.ext
+import random
 
 import mapGen
 from Tile import Tile
@@ -29,8 +30,8 @@ def main():
 
     # Create the spirte factory and the sprite for the player
     factory         = sdl2.ext.SpriteFactory(sdl2.ext.SOFTWARE)
-    food_sprite     = factory.from_color(sdl2.ext.Color(255, 255, 255), size = (50, 50))
-    weapon_sprite   = factory.from_color(sdl2.ext.Color(175, 175, 175), size = (50, 50))
+    food_sprite     = factory.from_color(sdl2.ext.Color(255, 255, 255), size = (32, 32))
+    weapon_sprite   = factory.from_color(sdl2.ext.Color(175, 175, 175), size = (32, 32))
     sprite          = factory.from_surface(sdl2.ext.load_image(RESOURCES.get_path('player.png')))
 
     # Create the worl and spriterenderer system
@@ -44,11 +45,17 @@ def main():
     world.add_system(movement)
     world.add_system(spriterenderer)
 
-    player = Player(world, sprite, 0, 0)
+    # Test map generation
+    mapData = mapGen.buildMap(5)
+    for room in mapData:
+        room.buildTiles(world, factory)
+
+    # Pick random location for player
+    playerTile = random.choice(random.choice(mapData).tiles)
+    player = Player(world, sprite, playerTile.sprite.position[0], playerTile.sprite.position[1])
     player_speed = 32
 
     # Test items
-    bricks  = Tile(world, factory, 'bricks', 200, 200)
     food    = Item(world, food_sprite, 500, 500, DataTypes.CONSUMABLE, "Sandwich")
     weapon  = Item(world, weapon_sprite, 300, 300, DataTypes.UNPATHABLE, "Axe")
 
@@ -56,11 +63,6 @@ def main():
     collision.colliders.append(food)
     collision.colliders.append(weapon)
     collision.player = player
-
-    # Test map generation
-    mapData = mapGen.buildMap(5, 5)
-    for room in mapData:
-        room.buildTiles(world, factory)
 
     # Main event loop
     running = True
