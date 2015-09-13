@@ -52,7 +52,7 @@ def buildMap(gridSize):
 
         width = random.randint(3, CELL_SIZE)
         height = random.randint(3, CELL_SIZE)
-        cells[coord] = Room(coord[0], coord[1], width, height)
+        cells[coord] = Room(world, factory, coord[0] * CELL_SIZE, coord[1] * CELL_SIZE, width, height)
 
     grid = Grid()
     grid.rooms = list(cells.values())

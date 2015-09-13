@@ -12,8 +12,8 @@ class Room:
 
     def build(self, world, factory):
         def tile(i, j):
-            realX = self.pos.x * CELL_SIZE + i
-            realY = self.pos.y * CELL_SIZE + j
+            realX = self.pos.x + i
+            realY = self.pos.y + j
             return Tile(world, factory, 'bricks', realX, realY)
 
         return [tile(i, j) for i in range(self.width) for j in range(self.height)]
