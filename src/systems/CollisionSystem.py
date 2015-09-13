@@ -1,6 +1,7 @@
 import sdl2.ext
 
 from entities.Item import DataTypes
+from entities.PlayerData import Equippable
 from components.Velocity import Velocity
 from grid.constants import Direction
 
@@ -47,14 +48,23 @@ class CollisionSystem(sdl2.ext.Applicator):
             if(collision):
 
                 # Items and weapons Go straight into the inventory
-                if self.colliders[pos].data.type in (DataTypes.ITEM, DataTypes.WEAPON):
-                    thing = self.colliders[pos].data.data
+                if(self.colliders[pos].data.type == DataTypes.ITEM):
+                    item = self.colliders[pos].data.data
                     self.colliders[pos].delete()
                     self.colliders.pop(pos)
 
-                    print("Adding: " + thing)
-                    self.player.playerdata.inventory.append(thing)
-                    print("Current inventory: ", self.player.playerdata.inventory)
+                    print("Adding: " + item)
+                    self.player.playerdata.equppied[Equippable.ITEM] = item
+                    print("Current inventory: ", self.player.playerdata.equppied[Equippable.ITEM])
+
+                elif(self.colliders[pos].data.type == DataTypes.WEAPON):
+                    weapon = self.colliders[pos].data.data
+                    self.colliders[pos].delete()
+                    self.colliders.pop(pos)
+
+                    print("Adding: " + weapon)
+                    self.player.playerdata.equppied[Equippable.WEAPON] = weapon 
+                    print("Current inventory: ", self.player.playerdata.equppied[Equippable.WEAPON])
 
                 # Eventually apply consumables for the player, right now they go into inventory
                 elif(self.colliders[pos].data.type == DataTypes.CONSUMABLE):
@@ -63,8 +73,8 @@ class CollisionSystem(sdl2.ext.Applicator):
                     self.colliders.pop(pos)
 
                     print("Adding: " + consumable)
-                    self.player.playerdata.inventory.append(consumable)
-                    print("Current inventory: ", self.player.playerdata.inventory)
+                    self.player.playerdata.equppied[Equippable.CONSUMABLE] = consumable
+                    print("Current consumable: ", self.player.playerdata.equppied[Equippable.CONSUMABLE])
 
                 # Iunno why we'd do anything if it's pathable
                 elif(self.colliders[pos].data.type == DataTpes.PATHABLE):

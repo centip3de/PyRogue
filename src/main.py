@@ -91,6 +91,15 @@ def main():
                         d = Direction.NORTH
                         key_down = True
 
+                    elif event.key.keysym.sym == sdl2.SDLK_e:
+                        print("I'm attacking with", player.get_damage(), "!")
+                        key_down = True
+
+                    elif event.key.keysym.sym == sdl2.SDLK_f:
+                        print("Consuming")
+                        player.consume()
+                        print("Player health now at,", player.playerdata.health)
+
                     elif event.key.keysym.sym == sdl2.SDLK_DOWN:
                         d = Direction.SOUTH
                         key_down = True
