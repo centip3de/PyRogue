@@ -63,6 +63,7 @@ def main():
 
     # Main event loop
     running = True
+    key_down = False
     while(running):
 
         events = sdl2.ext.get_events()
@@ -74,22 +75,33 @@ def main():
                 running = False
                 break
 
+            if event.type == sdl2.SDL_KEYUP:
+                key_down = False
+
             # Movement
             if event.type == sdl2.SDL_KEYDOWN:
                 d = None
 
-                if event.key.keysym.sym == sdl2.SDLK_UP:
-                    d = Direction.NORTH
-                elif event.key.keysym.sym == sdl2.SDLK_DOWN:
-                    d = Direction.SOUTH
-                elif event.key.keysym.sym == sdl2.SDLK_LEFT:
-                    d = Direction.EAST
-                elif event.key.keysym.sym == sdl2.SDLK_RIGHT:
-                    d = Direction.WEST
+                if(not key_down):
+                    if event.key.keysym.sym == sdl2.SDLK_UP:
+                        d = Direction.NORTH
+                        key_down = True
 
-                if d != None:
-                    collision.player_dir = d
-                    player.walk(grid, d)
+                    elif event.key.keysym.sym == sdl2.SDLK_DOWN:
+                        d = Direction.SOUTH
+                        key_down = True
+
+                    elif event.key.keysym.sym == sdl2.SDLK_LEFT:
+                        d = Direction.EAST
+                        key_down = True
+
+                    elif event.key.keysym.sym == sdl2.SDLK_RIGHT:
+                        d = Direction.WEST
+                        key_down = True
+
+                    if d != None:
+                        collision.player_dir = d
+                        player.walk(grid, d)
 
         sdl2.SDL_Delay(10)
         world.process()
