@@ -2,6 +2,7 @@ import sys
 import sdl2
 import sdl2.ext
 
+import mapGen
 from Tile import Tile
 from player import Player
 from movement import *
@@ -9,7 +10,6 @@ from collision import *
 from item import Item
 
 RESOURCES = sdl2.ext.Resources(__file__, '../resources')
-TILES = sdl2.ext.Resources(__file__, '../resources/tiles')
 
 class SoftwareRenderer(sdl2.ext.SoftwareSpriteRenderSystem):
     def __init__(self, window):
@@ -53,6 +53,9 @@ def main():
 
     collision.colliders.append(food)
     collision.colliders.append(weapon)
+    mapData = mapGen.buildMap(5, 5)
+    for room in mapData:
+        room.buildTiles(world, factory)
 
     # Main event loop
     running = True
