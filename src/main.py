@@ -10,7 +10,9 @@ from systems.GridSystem import *
 from entities.Tile import Tile
 from entities.Item import ConsumableTypes
 from entities.Player import Player
+from systems.BattleSystem import *
 from systems.MovementSystem import *
+from systems.PlayerMovementSystem import *
 from systems.CollisionSystem import *
 from entities.Item import *
 
@@ -36,12 +38,15 @@ def main():
     world           = sdl2.ext.World()
     spriterenderer  = SoftwareRenderer(window)
     movement        = MovementSystem(0, 0, 960, 640)
+    playerMovement  = PlayerMovementSystem()
     collision       = CollisionSystem()
 
     # Add all systems to the world
+    world.add_system(playerMovement)
     world.add_system(collision)
     world.add_system(movement)
     world.add_system(spriterenderer)
+    world.add_system(BattleSystem())
 
     # Test map generation
     grid = mapGen.buildMap(world, factory, 4)
@@ -54,6 +59,9 @@ def main():
     playerTile = random.choice(grid.tiles)
     player = Player(world, factory, playerTile.position.x, playerTile.position.y)
     player_speed = 1
+
+    playerMovement.player = player
+    playerMovement.grid = grid
 
     gridSystem = GridSystem(960, 640, player)
     world.add_system(gridSystem)
@@ -111,8 +119,8 @@ def main():
 
                     if d != None:
                         collision.player_dir = d
-                        player.walk(grid, d)
                         enemy.random_move(grid)
+                        playerMovement.walk(d)
 
         sdl2.SDL_Delay(10)
         world.process()

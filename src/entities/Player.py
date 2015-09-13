@@ -16,13 +16,6 @@ class Player(sdl2.ext.Entity):
         self.sprite.depth       = 2
         self.playerdata         = PlayerData()
 
-    def walk(self, grid, direction):
-        x = self.position.x + direction.value.x
-        y = self.position.y + direction.value.y
-
-        if grid.hasTileAt(x, y):
-            self.position = Position(x, y)
-
     def take_damage(self, amount):
         self.playerdata.health -= amount
         if(self.playerdata.health <= 0):

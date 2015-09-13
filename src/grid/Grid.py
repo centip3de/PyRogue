@@ -21,5 +21,16 @@ class Grid:
                 return True
         return False
 
-    def hasTileAt(self, x, y):
-        return any((tile.position.x == x and tile.position.y == y for tile in self.tiles))
+    def entitiesAt(self, x, y):
+        entities = []
+
+        for room in self.rooms:
+            for item in room.items:
+                if item.position.x == x and item.position.y == y:
+                    entities.append(item)
+
+        for tile in self.tiles:
+            if tile.position.x == x and tile.position.y == y:
+                entities.append(tile)
+
+        return entities
