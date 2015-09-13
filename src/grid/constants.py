@@ -16,8 +16,8 @@ class Direction(Enum):
     SOUTHWEST = Position(1, 1)
 
 def findDirection(p0, p1):
-    dx = p0.x - p1.y
-    dy = p0.x - p1.y
+    dx = p0.x - p1.x
+    dy = p0.y - p1.y
 
     if dx == 0:
         return Direction.SOUTH if dy < 0 else Direction.NORTH
