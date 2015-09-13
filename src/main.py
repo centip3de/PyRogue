@@ -1,8 +1,8 @@
-
 import sys
 import sdl2
 import sdl2.ext
 
+import mapGen
 from Tile import Tile
 from player import Player
 from movement import *
@@ -44,7 +44,9 @@ def main():
     player = Player(world, sprite, 200, 200)
     player_speed = 2
 
-    bricks = Tile(world, factory, 'bricks', 200, 200)
+    mapData = mapGen.buildMap(5, 5)
+    for room in mapData:
+        room.buildTiles(world, factory)
 
     # Main event loop
     running = True
