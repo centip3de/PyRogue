@@ -30,8 +30,8 @@ def main():
 
     # Create the spirte factory and the sprite for the player
     factory         = sdl2.ext.SpriteFactory(sdl2.ext.SOFTWARE)
-    food_sprite     = factory.from_color(sdl2.ext.Color(255, 255, 255), size = (50, 50))
-    weapon_sprite   = factory.from_color(sdl2.ext.Color(175, 175, 175), size = (50, 50))
+    food_sprite     = factory.from_color(sdl2.ext.Color(255, 255, 255), size = (32, 32))
+    weapon_sprite   = factory.from_color(sdl2.ext.Color(175, 175, 175), size = (32, 32))
     sprite          = factory.from_surface(sdl2.ext.load_image(RESOURCES.get_path('player.png')))
 
     # Create the worl and spriterenderer system
