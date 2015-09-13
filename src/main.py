@@ -60,8 +60,8 @@ def main():
     world.add_system(gridSystem)
 
     # Test items
-    food    = Item(world, food_sprite, 500, 500, DataTypes.CONSUMABLE, "Sandwich")
-    weapon  = Item(world, weapon_sprite, 300, 300, DataTypes.UNPATHABLE, "Axe")
+    food    = Item(world, food_sprite, 0, 0, DataTypes.CONSUMABLE, "Sandwich")
+    weapon  = Item(world, weapon_sprite, 3, 3, DataTypes.UNPATHABLE, "Axe")
 
     # Colliders for said items
     collision.colliders.append(food)
