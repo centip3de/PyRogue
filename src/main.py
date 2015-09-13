@@ -26,7 +26,7 @@ def main():
     sdl2.ext.init()
 
     # Create the window
-    window = sdl2.ext.Window("Foo", size=(800, 600))
+    window = sdl2.ext.Window("Foo", size=(960, 640))
     window.show()
 
     # Create the spirte factory and the sprite for the player
@@ -83,16 +83,16 @@ def main():
             # Movement
             if event.type == sdl2.SDL_KEYDOWN:
                 if event.key.keysym.sym == sdl2.SDLK_UP:
-                    player.sprite.y -= player_speed
+                    player.position.y -= 1
 
                 elif event.key.keysym.sym == sdl2.SDLK_DOWN:
-                    player.sprite.y += player_speed
+                    player.position.y += 1
 
                 elif event.key.keysym.sym == sdl2.SDLK_LEFT:
-                    player.sprite.x -= player_speed
+                    player.position.x -= 1
 
                 elif event.key.keysym.sym == sdl2.SDLK_RIGHT:
-                    player.sprite.x += player_speed
+                    player.position.x += 1
 
         sdl2.SDL_Delay(10)
         world.process()
