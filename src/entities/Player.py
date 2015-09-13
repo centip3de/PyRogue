@@ -8,7 +8,7 @@ class Player(sdl2.ext.Entity):
     def __init__(self, world, sprite, x, y):
         self.sprite             = sprite
         self.position           = Position(x, y)
-        self.sprite.depth       = 1
+        self.sprite.depth       = 2
         self.playerdata         = PlayerData()
 
     def walk(self, grid, direction):
