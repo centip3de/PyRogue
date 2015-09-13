@@ -7,3 +7,9 @@ class Player(sdl2.ext.Entity):
         self.sprite.position    = (x, y)
         self.sprite.depth       = 1
         self.velocity           = Velocity()
+        self.playerdata         = PlayerData()
+
+class PlayerData(object):
+    def __init__(self):
+        super(PlayerData, self).__init__()
+        self.inventory = []

@@ -11,6 +11,7 @@ class CollisionSystem(sdl2.ext.Applicator):
         self.componenttypes = Velocity, sdl2.ext.Sprite
         self.colliders      = []
         self.collided       = []
+        self.player         = None
         self.minx           = minx
         self.miny           = miny
         self.maxx           = maxx
@@ -40,14 +41,27 @@ class CollisionSystem(sdl2.ext.Applicator):
         for pos, collision in enumerate(self.collided):
 
             if(collision):
-                if(self.colliders[pos].data.type == DataTypes.ITEM):
-                    print("I'm an item, like a key!")
 
-                elif(self.colliders[pos].data.type == DataTypes.WEAPON):
-                    print("I'm a weapon, like a sword!")
+                # Items and weapons Go straight into the inventory 
+                if(self.colliders[pos].data.type == DataTypes.ITEM or self.colliders[pos].data.type == DataTypes.WEAPON):
+                    thing = self.colliders[pos].data.data
+                    self.colliders[pos].delete()
+                    self.colliders.pop(pos)
 
+                    print("Adding: " + thing)
+                    self.player.playerdata.inventory.append(thing)
+                    print("Current inventory: ", self.player.playerdata.inventory)
+
+                # Eventually apply consumables for the player, right now they go into inventory
                 elif(self.colliders[pos].data.type == DataTypes.CONSUMABLE):
-                    print("I'm a consumable, like food!")
+                    consumable = self.colliders[pos].data.data
+                    self.colliders[pos].delete()
+                    self.colliders.pop(pos)
 
-                else:
+                    print("Adding: " + consumable)
+                    self.player.playerdata.inventory.append(consumable)
+                    print("Current inventory: ", self.player.playerdata.inventory)
+
+
+                elif(self.colliders[pos].data.type == DataTypes.UNPATHABLE):
                     print("I'm on a wall!")

@@ -55,6 +55,7 @@ def main():
     # Colliders for said items
     collision.colliders.append(food)
     collision.colliders.append(weapon)
+    collision.player = player
 
     # Test map generation
     mapData = mapGen.buildMap(5, 5)
