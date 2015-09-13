@@ -2,11 +2,12 @@ import sdl2.ext
 from enum import Enum
 
 from components.Position import Position
+ITEMS = sdl2.ext.Resources(__file__, '../../resources/items')
 
 # Item entity. The actual renderable portion of an item.
 class Item(sdl2.ext.Entity):
-    def __init__(self, world, sprite, x, y, type, data):
-        self.sprite             = sprite
+    def __init__(self, world, factory, name, x, y, type, data):
+        self.sprite = factory.from_image(ITEMS.get_path(name + '.png'))
         self.position           = Position(x, y)
         self.sprite.depth       = 1
         self.data               = Data(type, data)

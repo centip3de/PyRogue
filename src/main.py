@@ -57,6 +57,10 @@ def main():
     gridSystem = GridSystem(960, 640, player)
     world.add_system(gridSystem)
 
+    # Test items
+    food    = Item(world, factory, 'sandwich', 0, 0, DataTypes.CONSUMABLE, "Sandwich")
+    weapon  = Item(world, factory, 'stick', 3, 3, DataTypes.UNPATHABLE, "Stick")
+
     # Colliders for said items
     collision.player = player
     collision.grid   = grid
