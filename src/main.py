@@ -7,8 +7,9 @@ from Tile import Tile
 from player import Player
 from movement import *
 from collision import *
-from item import Item
+from item import *
 
+# Resources file
 RESOURCES = sdl2.ext.Resources(__file__, '../resources')
 
 class SoftwareRenderer(sdl2.ext.SoftwareSpriteRenderSystem):
@@ -47,19 +48,22 @@ def main():
     player = Player(world, sprite, 0, 0)
     player_speed = 2
 
+    # Test items
     bricks  = Tile(world, factory, 'bricks', 200, 200)
-    food    = Item(world, food_sprite, 500, 500, "Food")
-    weapon  = Item(world, weapon_sprite, 300, 300, "Weapon")
+    food    = Item(world, food_sprite, 500, 500, DataTypes.CONSUMABLE)
+    weapon  = Item(world, weapon_sprite, 300, 300, DataTypes.WEAPON)
 
+    # Colliders for said items
     collision.colliders.append(food)
     collision.colliders.append(weapon)
+
+    # Test map generation
     mapData = mapGen.buildMap(5, 5)
     for room in mapData:
         room.buildTiles(world, factory)
 
     # Main event loop
     running = True
-
     while(running):
 
         events = sdl2.ext.get_events()
