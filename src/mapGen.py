@@ -16,8 +16,6 @@ class Room:
     def buildTiles(self, world, factory):
         self.tiles = []
 
-        #print('building tiles. width is {0}. height is {0}'.format(self.width, self.height))
-
         for i in range(self.width):
             for j in range(self.height):
                 realX = self.x * CELL_SIZE * TILE_SIZE + i * TILE_SIZE
@@ -28,23 +26,36 @@ class Room:
                 )
 
 # MAGIC
+def safeToPlace(cells, coord):
+    x = coord[0]
+    y = coord[1]
+
+    return \
+        (x - 1, y) not in cells and \
+        (x + 1, y) not in cells and \
+        (x, y - 1) not in cells and \
+        (x, y + 1) not in cells
+
 def buildMap(gridSize):
     cells = {}
 
-    # fill some cells with rooms
-    roomCount = min(10, gridSize * gridSize)
+    # generate a list of candidate coords for cells
+    roomCoords = [(x, y) for x in range(gridSize) for y in range(gridSize)]
+    random.shuffle(roomCoords)
+
+    roomCount = min(10, gridSize * gridSize / 2)
     for i in range(roomCount):
-        x = random.randrange(0, gridSize)
-        y = random.randrange(0, gridSize)
+        # search for candidate cell
+        coord = roomCoords.pop()
 
-        while (x, y) in cells:
-            x = random.randrange(0, gridSize)
-            y = random.randrange(0, gridSize)
+        while not safeToPlace(cells, coord) and len(roomCoords) > 0:
+            coord = roomCoords.pop()
 
-        #print('found empty spot at {0},{1}'.format(x,y))
+        if not safeToPlace(cells, coord):
+            break
 
-        #width = random.randint(2, CELL_SIZE)
-        #height = random.randint(2, CELL_SIZE)
-        cells[(x, y)] = Room(x, y, CELL_SIZE, CELL_SIZE)#width, height)
+        width = random.randint(3, CELL_SIZE)
+        height = random.randint(3, CELL_SIZE)
+        cells[coord] = Room(coord[0], coord[1], width, height)
 
     return list(cells.values())
