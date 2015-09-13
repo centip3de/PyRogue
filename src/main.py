@@ -46,7 +46,7 @@ def main():
     world.add_system(spriterenderer)
 
     # Test map generation
-    grid = mapGen.buildMap(5)
+    grid = mapGen.buildMap(4)
     grid.build(world, factory)
 
     # Pick random location for player

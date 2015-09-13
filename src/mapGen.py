@@ -36,7 +36,7 @@ def buildMap(gridSize):
     roomCoords = [(x, y) for x in range(gridSize) for y in range(gridSize)]
     random.shuffle(roomCoords)
 
-    roomCount = min(10, gridSize * gridSize / 2)
+    roomCount = min(10, int(gridSize * gridSize / 2))
     for i in range(roomCount):
         # search for candidate cell
         coord = roomCoords.pop()
@@ -54,9 +54,12 @@ def buildMap(gridSize):
     grid = Grid()
     grid.rooms = list(cells.values())
 
+    # connect every room to one neighbor
     for coord in cells:
         room = cells[coord]
         room1 = findNearestNeighbor(cells, coord)
-        grid.corridors.append(Corridor(room, room1))
+
+        if not grid.connected(room, room1):
+            grid.corridors.append(Corridor(room, room1))
 
     return grid
