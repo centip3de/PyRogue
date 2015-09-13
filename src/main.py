@@ -46,12 +46,11 @@ def main():
     world.add_system(spriterenderer)
 
     # Test map generation
-    mapData = mapGen.buildMap(5)
-    for room in mapData:
-        room.buildTiles(world, factory)
+    grid = mapGen.buildMap(5)
+    grid.build(world, factory)
 
     # Pick random location for player
-    playerTile = random.choice(random.choice(mapData).tiles)
+    playerTile = random.choice(grid.tiles)
     player = Player(world, sprite, playerTile.sprite.position[0], playerTile.sprite.position[1])
     player_speed = 32
 
@@ -90,7 +89,7 @@ def main():
 
                 elif event.key.keysym.sym == sdl2.SDLK_RIGHT:
                     player.sprite.x += player_speed
-                        
+
         sdl2.SDL_Delay(10)
         world.process()
 

@@ -1,31 +1,13 @@
 import random
+import math
 
 from Tile import Tile
 
-TILE_SIZE = 32
-CELL_SIZE = 5
+from grid.constants import *
+from grid.Grid import *
+from grid.Room import *
+from grid.Corridor import *
 
-# MAGIC
-class Room:
-    def __init__(self, x, y, width, height):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-
-    def buildTiles(self, world, factory):
-        self.tiles = []
-
-        for i in range(self.width):
-            for j in range(self.height):
-                realX = self.x * CELL_SIZE * TILE_SIZE + i * TILE_SIZE
-                realY = self.y * CELL_SIZE * TILE_SIZE + j * TILE_SIZE
-
-                self.tiles.append(
-                    Tile(world, factory, 'bricks', realX, realY)
-                )
-
-# MAGIC
 def safeToPlace(cells, coord):
     x = coord[0]
     y = coord[1]
@@ -35,6 +17,17 @@ def safeToPlace(cells, coord):
         (x + 1, y) not in cells and \
         (x, y - 1) not in cells and \
         (x, y + 1) not in cells
+
+def findNearestNeighbor(cells, coord):
+    def dist2(c):
+        d = math.sqrt((c[0] - coord[0]) ** 2 + (c[1] - coord[1]) ** 2)
+        if d == 0:
+            return float('inf')
+        else:
+            return d
+
+    coord1 = sorted(cells.keys(), key = dist2)[0]
+    return cells[coord1]
 
 def buildMap(gridSize):
     cells = {}
@@ -58,4 +51,12 @@ def buildMap(gridSize):
         height = random.randint(3, CELL_SIZE)
         cells[coord] = Room(coord[0], coord[1], width, height)
 
-    return list(cells.values())
+    grid = Grid()
+    grid.rooms = list(cells.values())
+
+    for coord in cells:
+        room = cells[coord]
+        room1 = findNearestNeighbor(cells, coord)
+        grid.corridors.append(Corridor(room, room1))
+
+    return grid
