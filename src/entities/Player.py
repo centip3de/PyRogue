@@ -7,9 +7,11 @@ from components.Position import Position
 from entities.Item       import WeaponTypes
 from entities.Item       import ConsumableTypes
 
+RESOURCES = sdl2.ext.Resources(__file__, '../../resources')
+
 class Player(sdl2.ext.Entity):
-    def __init__(self, world, sprite, x, y):
-        self.sprite             = sprite
+    def __init__(self, world, factory, x, y):
+        self.sprite = factory.from_image(RESOURCES.get_path('player.png'))
         self.position           = Position(x, y)
         self.sprite.depth       = 2
         self.playerdata         = PlayerData()
