@@ -44,8 +44,8 @@ class CollisionSystem(sdl2.ext.Applicator):
 
         collitems = [comp for comp in componentsets if self._overlap(comp)]
         for pos, collision in enumerate(self.collided):
-
             if(collision):
+                print("Colliding with,", self.colliders[pos].data.type, "at,", pos)
 
                 # Items and weapons Go straight into the inventory
                 if(self.colliders[pos].data.type == DataTypes.ITEM):
