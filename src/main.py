@@ -49,8 +49,8 @@ def main():
 
     # Test items
     bricks  = Tile(world, factory, 'bricks', 200, 200)
-    food    = Item(world, food_sprite, 500, 500, DataTypes.CONSUMABLE)
-    weapon  = Item(world, weapon_sprite, 300, 300, DataTypes.WEAPON)
+    food    = Item(world, food_sprite, 500, 500, DataTypes.CONSUMABLE, "Sandwich")
+    weapon  = Item(world, weapon_sprite, 300, 300, DataTypes.WEAPON, "Axe")
 
     # Colliders for said items
     collision.colliders.append(food)

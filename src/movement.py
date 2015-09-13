@@ -1,5 +1,6 @@
 import sdl2.ext
 
+# Handles the movement of all entities
 class MovementSystem(sdl2.ext.Applicator):
     def __init__(self, minx, miny, maxx, maxy):
         super(MovementSystem, self).__init__()
@@ -10,6 +11,7 @@ class MovementSystem(sdl2.ext.Applicator):
         self.maxx = maxx
         self.maxy = maxy
 
+    # Moves the sprites according to their velocity, forcing them to stay on screen
     def process(self, world, componentsets):
         for velocity, sprite in componentsets:
 
@@ -28,6 +30,7 @@ class MovementSystem(sdl2.ext.Applicator):
             if(pmaxy > self.maxy):
                 sprite.y = self.maxy - sheight
 
+# Data class for holding velocity info
 class Velocity(object):
     def __init__(self):
         super(Velocity, self).__init__()

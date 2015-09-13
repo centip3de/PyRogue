@@ -4,6 +4,7 @@ from Tile import Tile
 
 TILE_SIZE = 32
 
+# MAGIC
 class Room:
     def __init__(self, x, y, width, height):
         self.x = x
@@ -23,6 +24,7 @@ class Room:
                     Tile(world, factory, 'bricks', realX, realY)
                 )
 
+# MAGIC
 def buildMap(cellSize, gridSize):
     cells = {}
 
