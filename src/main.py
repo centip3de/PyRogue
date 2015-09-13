@@ -4,6 +4,7 @@ import sdl2.ext
 import random
 
 import mapGen
+from grid.constants import Direction
 from grid.GridSystem import *
 from Tile import Tile
 from player import Player
@@ -82,17 +83,19 @@ def main():
 
             # Movement
             if event.type == sdl2.SDL_KEYDOWN:
+                d = None
+
                 if event.key.keysym.sym == sdl2.SDLK_UP:
-                    player.position.y -= 1
-
+                    d = Direction.NORTH
                 elif event.key.keysym.sym == sdl2.SDLK_DOWN:
-                    player.position.y += 1
-
+                    d = Direction.SOUTH
                 elif event.key.keysym.sym == sdl2.SDLK_LEFT:
-                    player.position.x -= 1
-
+                    d = Direction.EAST
                 elif event.key.keysym.sym == sdl2.SDLK_RIGHT:
-                    player.position.x += 1
+                    d = Direction.WEST
+
+                if d != None:
+                    player.walk(grid, d)
 
         sdl2.SDL_Delay(10)
         world.process()

@@ -1,13 +1,8 @@
 from grid.constants import TILE_SIZE
+from grid.Position import Position
 
 import sdl2.ext
 import math
-
-class Position(object):
-    def __init__(self, x, y):
-        super(Position, self).__init__()
-        self.x = x
-        self.y = y
 
 class GridSystem(sdl2.ext.Applicator):
     def __init__(self, width, height, player):

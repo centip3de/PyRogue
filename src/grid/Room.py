@@ -1,7 +1,7 @@
 import random
 
 from Tile import Tile
-from grid.GridSystem import Position
+from grid.Position import Position
 from grid.constants import *
 
 class Room:

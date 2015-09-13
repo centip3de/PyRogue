@@ -1,17 +1,19 @@
 from enum import Enum
 
+from grid.Position import Position
+
 CELL_SIZE = 5
 TILE_SIZE = 32
 
 class Direction(Enum):
-    NORTH = (0, -1)
-    EAST = (-1, 0)
-    SOUTH = (0, 1)
-    WEST = (1, 0)
-    NORTHEAST = (-1, -1)
-    NORTHWEST = (1, -1)
-    SOUTHEAST = (-1, 1)
-    SOUTHWEST = (1, 1)
+    NORTH = Position(0, -1)
+    EAST = Position(-1, 0)
+    SOUTH = Position(0, 1)
+    WEST = Position(1, 0)
+    NORTHEAST = Position(-1, -1)
+    NORTHWEST = Position(1, -1)
+    SOUTHEAST = Position(-1, 1)
+    SOUTHWEST = Position(1, 1)
 
 def findDirection(p0, p1):
     dx = p0.x - p1.y

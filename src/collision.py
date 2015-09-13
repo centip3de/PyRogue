@@ -3,7 +3,7 @@ import sdl2.ext
 from item import DataTypes
 from movement import Velocity
 
-# This gross thing handles all our collision, for now. 
+# This gross thing handles all our collision, for now.
 class CollisionSystem(sdl2.ext.Applicator):
 
     def __init__(self, minx, miny, maxx, maxy):
@@ -34,7 +34,7 @@ class CollisionSystem(sdl2.ext.Applicator):
 
         return self.collided
 
-    # Does the thing when it finds a collision. Right now that's a whole lot of nothing. 
+    # Does the thing when it finds a collision. Right now that's a whole lot of nothing.
     def process(self, world, componentsets):
 
         collitems = [comp for comp in componentsets if self._overlap(comp)]
@@ -42,8 +42,8 @@ class CollisionSystem(sdl2.ext.Applicator):
 
             if(collision):
 
-                # Items and weapons Go straight into the inventory 
-                if(self.colliders[pos].data.type == DataTypes.ITEM or self.colliders[pos].data.type == DataTypes.WEAPON):
+                # Items and weapons Go straight into the inventory
+                if self.colliders[pos].data.type in (DataTypes.ITEM, DataTypes.WEAPON):
                     thing = self.colliders[pos].data.data
                     self.colliders[pos].delete()
                     self.colliders.pop(pos)
@@ -64,7 +64,7 @@ class CollisionSystem(sdl2.ext.Applicator):
 
 
                 elif(self.colliders[pos].data.type == DataTypes.UNPATHABLE):
-                    sprite_x, sprite_y = self.player.sprite.position 
+                    sprite_x, sprite_y = self.player.sprite.position
                     sprite_h, sprite_w = self.player.sprite.size
 
                     object_x, object_y = self.colliders[pos].sprite.position
@@ -80,7 +80,7 @@ class CollisionSystem(sdl2.ext.Applicator):
                     elif(object_x < sprite_x):
                         print("Object X is smaller than Sprite X")
                         new_y = sprite_y
-                        new_x = object_x + object_w 
+                        new_x = object_x + object_w
 
                     if(object_y > sprite_y):
                         print("Object Y is bigger than Sprite Y")
@@ -89,7 +89,7 @@ class CollisionSystem(sdl2.ext.Applicator):
 
                     elif(object_y < sprite_y):
                         print("Object Y is smaller than Sprite Y")
-                        new_y = object_y + object_h 
+                        new_y = object_y + object_h
                         new_x = sprite_x
 
                     self.player.sprite.position = (new_x, new_y)

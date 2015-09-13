@@ -2,6 +2,7 @@ class Grid:
     def __init__(self):
         self.rooms = []
         self.corridors = []
+        self.tiles = []
 
     def build(self, world, factory):
         self.tiles = []
@@ -19,3 +20,6 @@ class Grid:
             elif corridor.room1.pos == room2.pos and corridor.room2.pos == room1.pos:
                 return True
         return False
+
+    def hasTileAt(self, x, y):
+        return any((tile.position.x == x and tile.position.y == y for tile in self.tiles))

@@ -17,12 +17,12 @@ class Corridor:
         endX = self.room2.pos.x * CELL_SIZE
         endY = self.room2.pos.y * CELL_SIZE
 
-        if d.value[0] != 0:
-            for x in range(startX, endX, d.value[0]):
+        if d.value.x != 0:
+            for x in range(startX, endX, d.value.x):
                 tiles.append(Tile(world, factory, 'bricks', x, startY))
 
-        if d.value[1] != 0:
-            for y in range(startY, endY, d.value[1]):
+        if d.value.y != 0:
+            for y in range(startY, endY, d.value.y):
                 tiles.append(Tile(world, factory, 'bricks', endX, y))
 
         return tiles

@@ -1,4 +1,4 @@
-from grid.GridSystem import Position
+from grid.Position import Position
 
 import sdl2.ext
 
