@@ -38,6 +38,9 @@ def buildMap(gridSize):
 
     roomCount = min(10, int(gridSize * gridSize / 2))
     for i in range(roomCount):
+        if len(roomCoords) == 0:
+            break
+
         # search for candidate cell
         coord = roomCoords.pop()
 
