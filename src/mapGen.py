@@ -29,7 +29,7 @@ def findNearestNeighbor(cells, coord):
     coord1 = sorted(cells.keys(), key = dist2)[0]
     return cells[coord1]
 
-def buildMap(gridSize):
+def buildMap(world, factory, gridSize):
     cells = {}
 
     # generate a list of candidate coords for cells
