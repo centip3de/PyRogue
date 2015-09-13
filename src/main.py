@@ -4,6 +4,7 @@ import sdl2.ext
 import random
 
 import mapGen
+from grid.GridSystem import *
 from Tile import Tile
 from player import Player
 from movement import *
@@ -52,7 +53,10 @@ def main():
     # Pick random location for player
     playerTile = random.choice(grid.tiles)
     player = Player(world, sprite, playerTile.sprite.position[0], playerTile.sprite.position[1])
-    player_speed = 32
+    player_speed = 1
+
+    gridSystem = GridSystem(960, 640, player)
+    world.add_system(gridSystem)
 
     # Test items
     food    = Item(world, food_sprite, 500, 500, DataTypes.CONSUMABLE, "Sandwich")
