@@ -45,12 +45,12 @@ def main():
     world.add_system(spriterenderer)
 
     player = Player(world, sprite, 0, 0)
-    player_speed = 2
+    player_speed = 32
 
     # Test items
     bricks  = Tile(world, factory, 'bricks', 200, 200)
     food    = Item(world, food_sprite, 500, 500, DataTypes.CONSUMABLE, "Sandwich")
-    weapon  = Item(world, weapon_sprite, 300, 300, DataTypes.WEAPON, "Axe")
+    weapon  = Item(world, weapon_sprite, 300, 300, DataTypes.UNPATHABLE, "Axe")
 
     # Colliders for said items
     collision.colliders.append(food)
@@ -75,21 +75,17 @@ def main():
 
             if event.type == sdl2.SDL_KEYDOWN:
                 if event.key.keysym.sym == sdl2.SDLK_UP:
-                    player.velocity.vy = -player_speed
+                    player.sprite.y -= player_speed
 
                 elif event.key.keysym.sym == sdl2.SDLK_DOWN:
-                    player.velocity.vy = player_speed
+                    player.sprite.y += player_speed
 
                 elif event.key.keysym.sym == sdl2.SDLK_LEFT:
-                    player.velocity.vx = -player_speed
+                    player.sprite.x -= player_speed
 
                 elif event.key.keysym.sym == sdl2.SDLK_RIGHT:
-                    player.velocity.vx = player_speed
-
-            elif event.type == sdl2.SDL_KEYUP:
-                player.velocity.vy = 0
-                player.velocity.vx = 0
-
+                    player.sprite.x += player_speed
+                        
         sdl2.SDL_Delay(10)
         world.process()
 

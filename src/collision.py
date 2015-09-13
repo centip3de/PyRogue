@@ -64,4 +64,34 @@ class CollisionSystem(sdl2.ext.Applicator):
 
 
                 elif(self.colliders[pos].data.type == DataTypes.UNPATHABLE):
-                    print("I'm on a wall!")
+                    sprite_x, sprite_y = self.player.sprite.position 
+                    sprite_h, sprite_w = self.player.sprite.size
+
+                    object_x, object_y = self.colliders[pos].sprite.position
+                    object_h, object_w = self.colliders[pos].sprite.size
+
+                    new_x, new_y = 0, 0
+
+                    if(object_x > sprite_x):
+                        print("Object X is bigger than Sprite X")
+                        new_y = sprite_y
+                        new_x = object_x - sprite_w
+
+                    elif(object_x < sprite_x):
+                        print("Object X is smaller than Sprite X")
+                        new_y = sprite_y
+                        new_x = object_x + object_w 
+
+                    if(object_y > sprite_y):
+                        print("Object Y is bigger than Sprite Y")
+                        new_y = object_y - sprite_h
+                        new_x = sprite_x
+
+                    elif(object_y < sprite_y):
+                        print("Object Y is smaller than Sprite Y")
+                        new_y = object_y + object_h 
+                        new_x = sprite_x
+
+                    self.player.sprite.position = (new_x, new_y)
+
+
