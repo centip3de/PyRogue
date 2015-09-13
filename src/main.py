@@ -1,6 +1,7 @@
 import sys
 import sdl2
 import sdl2.ext
+import random
 
 import mapGen
 from Tile import Tile
@@ -44,11 +45,17 @@ def main():
     world.add_system(movement)
     world.add_system(spriterenderer)
 
-    player = Player(world, sprite, 0, 0)
+    # Test map generation
+    mapData = mapGen.buildMap(5)
+    for room in mapData:
+        room.buildTiles(world, factory)
+
+    # Pick random location for player
+    playerTile = random.choice(random.choice(mapData).tiles)
+    player = Player(world, sprite, playerTile.sprite.position[0], playerTile.sprite.position[1])
     player_speed = 2
 
     # Test items
-    bricks  = Tile(world, factory, 'bricks', 200, 200)
     food    = Item(world, food_sprite, 500, 500, DataTypes.CONSUMABLE, "Sandwich")
     weapon  = Item(world, weapon_sprite, 300, 300, DataTypes.WEAPON, "Axe")
 
@@ -56,11 +63,6 @@ def main():
     collision.colliders.append(food)
     collision.colliders.append(weapon)
     collision.player = player
-
-    # Test map generation
-    mapData = mapGen.buildMap(5, 5)
-    for room in mapData:
-        room.buildTiles(world, factory)
 
     # Main event loop
     running = True
