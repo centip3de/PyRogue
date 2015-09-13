@@ -43,4 +43,4 @@ class Player(sdl2.ext.Entity):
         elif(self.playerdata.equipped[Equippable.CONSUMABLE] == ConsumableTypes.SANDWICH):
             self.playerdata.health += 10
 
-        self.playerdata.equppid[Equippable.CONSUMABLE] == None
+        self.playerdata.equipped[Equippable.CONSUMABLE] == None
