@@ -1,7 +1,7 @@
 import sdl2.ext
 
-from item import DataTypes
-from movement import Velocity
+from entities.Item import DataTypes
+from components.Velocity import Velocity
 
 # This gross thing handles all our collision, for now.
 class CollisionSystem(sdl2.ext.Applicator):

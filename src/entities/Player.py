@@ -1,7 +1,8 @@
 import sdl2.ext
 
-from movement import Velocity
-from grid.Position import Position
+from components.Velocity import Velocity
+from components.PlayerData import PlayerData
+from components.Position import Position
 
 class Player(sdl2.ext.Entity):
     def __init__(self, world, sprite, x, y):
@@ -16,10 +17,3 @@ class Player(sdl2.ext.Entity):
 
         if grid.hasTileAt(x, y):
             self.position = Position(x, y)
-
-class PlayerData(object):
-    def __init__(self):
-        super(PlayerData, self).__init__()
-        self.inventory  = []
-        self.health     = 50
-        self.equipped   = {}

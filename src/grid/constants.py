@@ -1,6 +1,6 @@
 from enum import Enum
 
-from grid.Position import Position
+from components.Position import Position
 
 CELL_SIZE = 5
 TILE_SIZE = 32

@@ -5,12 +5,12 @@ import random
 
 import mapGen
 from grid.constants import Direction
-from grid.GridSystem import *
-from Tile import Tile
-from player import Player
-from movement import *
-from collision import *
-from item import *
+from systems.GridSystem import *
+from entities.Tile import Tile
+from entities.Player import Player
+from systems.MovementSystem import *
+from systems.CollisionSystem import *
+from entities.Item import *
 
 # Resources file
 RESOURCES = sdl2.ext.Resources(__file__, '../resources')

@@ -1,5 +1,5 @@
 from grid.constants import *
-from Tile import Tile
+from entities.Tile import Tile
 
 class Corridor:
     def __init__(self, room1, room2):

@@ -1,7 +1,7 @@
 import random
 import math
 
-from Tile import Tile
+from entities.Tile import Tile
 
 from grid.constants import *
 from grid.Grid import *

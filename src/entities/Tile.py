@@ -1,8 +1,8 @@
-from grid.Position import Position
+from components.Position import Position
 
 import sdl2.ext
 
-TILES = sdl2.ext.Resources(__file__, '../resources/tiles')
+TILES = sdl2.ext.Resources(__file__, '../../resources/tiles')
 
 class Tile(sdl2.ext.Entity):
     def __init__(self, world, factory, name, x, y):

@@ -1,5 +1,5 @@
 from grid.constants import TILE_SIZE
-from grid.Position import Position
+from components.Position import Position
 
 import sdl2.ext
 import math

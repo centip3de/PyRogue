@@ -1,4 +1,5 @@
 import sdl2.ext
+from components.Velocity import Velocity
 
 # Handles the movement of all entities
 class MovementSystem(sdl2.ext.Applicator):
@@ -29,10 +30,3 @@ class MovementSystem(sdl2.ext.Applicator):
                 sprite.x = self.maxx - swidth
             if(pmaxy > self.maxy):
                 sprite.y = self.maxy - sheight
-
-# Data class for holding velocity info
-class Velocity(object):
-    def __init__(self):
-        super(Velocity, self).__init__()
-        self.vx = 0
-        self.vy = 0
