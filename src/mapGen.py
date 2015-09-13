@@ -65,4 +65,27 @@ def buildMap(gridSize):
         if not grid.connected(room, room1):
             grid.corridors.append(Corridor(room, room1))
 
+    # we can still end up with more than one connected component.
+    # so let's compute all connected components, and then connect them
+    def inComponent(comp, room):
+        return any((grid.connected(room, room1) for room1 in comp))
+
+    comps = []
+    for coord in cells:
+        room = cells[coord]
+
+        found = False
+        for comp in comps:
+            if inComponent(comp, room):
+                comp.append(room)
+                found = True
+                break
+
+        if not found:
+            comps.append([room])
+
+    while len(comps) > 1:
+        grid.corridors.append(Corridor(comps[-1][0], comps[-2][0]))
+        comps.pop()
+
     return grid
