@@ -5,6 +5,7 @@ import random
 
 import mapGen
 from grid.constants import Direction
+from entities.Enemy import Enemy
 from systems.GridSystem import *
 from entities.Tile import Tile
 from entities.Item import ConsumableTypes
@@ -45,6 +46,9 @@ def main():
     # Test map generation
     grid = mapGen.buildMap(world, factory, 4)
     grid.build(world, factory)
+
+    enemyTile = random.choice(grid.tiles)
+    enemy = Enemy(world, factory, enemyTile.position.x, enemyTile.position.y)
 
     # Pick random location for player
     playerTile = random.choice(grid.tiles)
@@ -108,6 +112,7 @@ def main():
                     if d != None:
                         collision.player_dir = d
                         player.walk(grid, d)
+                        enemy.random_move(grid)
 
         sdl2.SDL_Delay(10)
         world.process()
