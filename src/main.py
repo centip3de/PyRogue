@@ -7,6 +7,7 @@ import mapGen
 from grid.constants import Direction
 from systems.GridSystem import *
 from entities.Tile import Tile
+from entities.Item import ConsumableTypes
 from entities.Player import Player
 from systems.MovementSystem import *
 from systems.CollisionSystem import *
@@ -33,8 +34,8 @@ def main():
     # Create the worl and spriterenderer system
     world           = sdl2.ext.World()
     spriterenderer  = SoftwareRenderer(window)
-    movement        = MovementSystem(0, 0, 800, 600)
-    collision       = CollisionSystem(0, 0, 800, 600)
+    movement        = MovementSystem(0, 0, 960, 640)
+    collision       = CollisionSystem(0, 0, 960, 640)
 
     # Add all systems to the world
     world.add_system(collision)

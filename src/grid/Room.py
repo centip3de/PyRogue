@@ -2,6 +2,7 @@ import random
 
 from entities.Tile import Tile
 from entities.Item import Item, DataTypes
+from entities.Enemy import Enemy
 from components.Position import Position
 from grid.constants import *
 
@@ -12,6 +13,7 @@ class Room:
         self.height = height
         self.items = []
 
+
         if random.random() < 0.33:
             itemX = random.randint(x, x + width - 1)
             itemY = random.randint(y, y + height - 1)
@@ -19,6 +21,11 @@ class Room:
             self.items.append(
                 Item(world, factory, 'sandwich', itemX, itemY, DataTypes.ITEM, 'Sandwich')
             )
+        else:
+            enemyX = random.randint(x, x + width - 1)
+            enemyY = random.randint(y, y + height - 1)
+
+            self.items.append(Enemy(world, factory, enemyX, enemyY ))
 
     def build(self, world, factory):
         def tile(i, j):

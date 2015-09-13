@@ -24,8 +24,10 @@ class CollisionSystem(sdl2.ext.Applicator):
 
     # Detects if any item is overlapping any other. If it is, it sets the flag in collided at the items position in colliders.
     def _overlap(self, item):
+        print("HERE")
         self.collided = [None]*(len(self.colliders))
         for collider_pos, collider in enumerate(self.colliders):
+            print(collider_pos, ":", collider)
 
             pos, sprite = item
             if sprite == collider.sprite:

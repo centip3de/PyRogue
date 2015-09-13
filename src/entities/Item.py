@@ -26,6 +26,7 @@ class DataTypes(Enum):
     UNPATHABLE  = 3
     PATHABLE    = 4
     CONSUMABLE  = 5
+    ENTITY      = 6
 
 # Enum of types of weapons
 class WeaponTypes(Enum):
