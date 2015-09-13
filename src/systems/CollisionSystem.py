@@ -41,6 +41,7 @@ class CollisionSystem(sdl2.ext.Applicator):
 
     # Does the thing when it finds a collision. Right now that's a whole lot of nothing.
     def process(self, world, componentsets):
+        self.colliders = self.grid.tiles + [self.player]
 
         collitems = [comp for comp in componentsets if self._overlap(comp)]
         for pos, collision in enumerate(self.collided):
@@ -63,7 +64,7 @@ class CollisionSystem(sdl2.ext.Applicator):
                     self.colliders.pop(pos)
 
                     print("Adding: " + weapon)
-                    self.player.playerdata.equppied[Equippable.WEAPON] = weapon 
+                    self.player.playerdata.equppied[Equippable.WEAPON] = weapon
                     print("Current inventory: ", self.player.playerdata.equppied[Equippable.WEAPON])
 
                 # Eventually apply consumables for the player, right now they go into inventory
@@ -86,7 +87,7 @@ class CollisionSystem(sdl2.ext.Applicator):
                         self.player.walk(self.grid, Direction.SOUTH)
 
                     elif(self.player_dir == Direction.WEST):
-                        self.player.walk(self.gird, Direction.EAST)
+                        self.player.walk(self.grid, Direction.EAST)
 
                     elif(self.player_dir == Direction.EAST):
                         self.player.walk(self.grid, Direction.EAST)

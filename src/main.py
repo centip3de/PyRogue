@@ -12,9 +12,6 @@ from systems.MovementSystem import *
 from systems.CollisionSystem import *
 from entities.Item import *
 
-# Resources file
-RESOURCES = sdl2.ext.Resources(__file__, '../resources')
-
 class SoftwareRenderer(sdl2.ext.SoftwareSpriteRenderSystem):
     def __init__(self, window):
         super(SoftwareRenderer, self).__init__(window)
@@ -32,7 +29,6 @@ def main():
 
     # Create the spirte factory and the sprite for the player
     factory         = sdl2.ext.SpriteFactory(sdl2.ext.SOFTWARE)
-    sprite          = factory.from_surface(sdl2.ext.load_image(RESOURCES.get_path('player.png')))
 
     # Create the worl and spriterenderer system
     world           = sdl2.ext.World()
@@ -51,7 +47,7 @@ def main():
 
     # Pick random location for player
     playerTile = random.choice(grid.tiles)
-    player = Player(world, sprite, playerTile.position.x, playerTile.position.y)
+    player = Player(world, factory, playerTile.position.x, playerTile.position.y)
     player_speed = 1
 
     gridSystem = GridSystem(960, 640, player)
