@@ -55,8 +55,8 @@ class CollisionSystem(sdl2.ext.Applicator):
                     self.colliders.pop(pos)
 
                     print("Adding: " + item)
-                    self.player.playerdata.equppied[Equippable.ITEM] = item
-                    print("Current inventory: ", self.player.playerdata.equppied[Equippable.ITEM])
+                    self.player.playerdata.equipped[Equippable.ITEM] = item
+                    print("Current inventory: ", self.player.playerdata.equipped[Equippable.ITEM])
 
                 elif(self.colliders[pos].data.type == DataTypes.WEAPON):
                     weapon = self.colliders[pos].data.data
@@ -64,8 +64,8 @@ class CollisionSystem(sdl2.ext.Applicator):
                     self.colliders.pop(pos)
 
                     print("Adding: " + weapon)
-                    self.player.playerdata.equppied[Equippable.WEAPON] = weapon
-                    print("Current inventory: ", self.player.playerdata.equppied[Equippable.WEAPON])
+                    self.player.playerdata.equipped[Equippable.WEAPON] = weapon
+                    print("Current inventory: ", self.player.playerdata.equipped[Equippable.WEAPON])
 
                 # Eventually apply consumables for the player, right now they go into inventory
                 elif(self.colliders[pos].data.type == DataTypes.CONSUMABLE):
@@ -74,8 +74,8 @@ class CollisionSystem(sdl2.ext.Applicator):
                     self.colliders.pop(pos)
 
                     print("Adding: " + consumable)
-                    self.player.playerdata.equppied[Equippable.CONSUMABLE] = consumable
-                    print("Current consumable: ", self.player.playerdata.equppied[Equippable.CONSUMABLE])
+                    self.player.playerdata.equipped[Equippable.CONSUMABLE] = consumable
+                    print("Current consumable: ", self.player.playerdata.equipped[Equippable.CONSUMABLE])
 
                 # Iunno why we'd do anything if it's pathable
                 elif(self.colliders[pos].data.type == DataTpes.PATHABLE):
