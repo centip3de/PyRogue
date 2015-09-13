@@ -11,11 +11,11 @@ class Corridor:
 
         d = findDirection(self.room1.pos, self.room2.pos)
 
-        startX = self.room1.pos.x * CELL_SIZE
-        startY = self.room1.pos.y * CELL_SIZE
+        startX = self.room1.pos.x
+        startY = self.room1.pos.y
 
-        endX = self.room2.pos.x * CELL_SIZE
-        endY = self.room2.pos.y * CELL_SIZE
+        endX = self.room2.pos.x
+        endY = self.room2.pos.y
 
         if d.value.x != 0:
             for x in range(startX, endX, d.value.x):

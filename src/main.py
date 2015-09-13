@@ -46,7 +46,7 @@ def main():
     world.add_system(spriterenderer)
 
     # Test map generation
-    grid = mapGen.buildMap(4)
+    grid = mapGen.buildMap(world, factory, 4)
     grid.build(world, factory)
 
     # Pick random location for player
@@ -56,10 +56,6 @@ def main():
 
     gridSystem = GridSystem(960, 640, player)
     world.add_system(gridSystem)
-
-    # Test items
-    food    = Item(world, factory, 'sandwich', 0, 0, DataTypes.CONSUMABLE, "Sandwich")
-    weapon  = Item(world, factory, 'stick', 3, 3, DataTypes.UNPATHABLE, "Stick")
 
     # Colliders for said items
     collision.player = player
