@@ -1,4 +1,3 @@
-
 import sys
 import sdl2
 import sdl2.ext
@@ -7,6 +6,7 @@ from Tile import Tile
 from player import Player
 from movement import *
 from collision import *
+from item import Item
 
 RESOURCES = sdl2.ext.Resources(__file__, '../resources')
 TILES = sdl2.ext.Resources(__file__, '../resources/tiles')
@@ -29,6 +29,8 @@ def main():
     # Create the spirte factory and the sprite for the player
     factory         = sdl2.ext.SpriteFactory(sdl2.ext.SOFTWARE)
     sprite          = factory.from_image(RESOURCES.get_path("random.bmp"))
+    food_sprite     = factory.from_color(sdl2.ext.Color(255, 255, 255), size = (50, 50))
+    weapon_sprite   = factory.from_color(sdl2.ext.Color(175, 175, 175), size = (50, 50))
 
     # Create the worl and spriterenderer system
     world           = sdl2.ext.World()
@@ -42,10 +44,15 @@ def main():
     world.add_system(spriterenderer)
 
     # Currently our player is the bunny picture.
-    player = Player(world, sprite, 200, 200)
+    player = Player(world, sprite, 0, 0)
     player_speed = 2
 
-    bricks = Tile(world, factory, 'bricks', 200, 200)
+    bricks  = Tile(world, factory, 'bricks', 200, 200)
+    food    = Item(world, food_sprite, 500, 500, "Food")
+    weapon  = Item(world, weapon_sprite, 300, 300, "Weapon")
+
+    collision.colliders.append(food)
+    collision.colliders.append(weapon)
 
     # Main event loop
     running = True
