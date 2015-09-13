@@ -8,7 +8,7 @@ from grid.constants import Direction
 # This gross thing handles all our collision, for now.
 class CollisionSystem(sdl2.ext.Applicator):
 
-    def __init__(self, minx, miny, maxx, maxy):
+    def __init__(self):
         super(CollisionSystem, self).__init__()
         self.componenttypes = Velocity, sdl2.ext.Sprite
         self.colliders      = []
@@ -16,11 +16,6 @@ class CollisionSystem(sdl2.ext.Applicator):
         self.player         = None
         self.player_dir     = None
         self.grid           = None
-
-        self.minx           = minx
-        self.miny           = miny
-        self.maxx           = maxx
-        self.maxy           = maxy
 
     # Detects if any item is overlapping any other. If it is, it sets the flag in collided at the items position in colliders.
     def _overlap(self, item):
@@ -57,8 +52,8 @@ class CollisionSystem(sdl2.ext.Applicator):
                     self.colliders.pop(pos)
 
                     print("Adding: " + item)
-                    self.player.playerdata.equppied[Equippable.ITEM] = item
-                    print("Current inventory: ", self.player.playerdata.equppied[Equippable.ITEM])
+                    self.player.playerdata.equipped[Equippable.ITEM] = item
+                    print("Current inventory: ", self.player.playerdata.equipped[Equippable.ITEM])
 
                 elif(self.colliders[pos].data.type == DataTypes.WEAPON):
                     weapon = self.colliders[pos].data.data
@@ -66,8 +61,8 @@ class CollisionSystem(sdl2.ext.Applicator):
                     self.colliders.pop(pos)
 
                     print("Adding: " + weapon)
-                    self.player.playerdata.equppied[Equippable.WEAPON] = weapon
-                    print("Current inventory: ", self.player.playerdata.equppied[Equippable.WEAPON])
+                    self.player.playerdata.equipped[Equippable.WEAPON] = weapon
+                    print("Current inventory: ", self.player.playerdata.equipped[Equippable.WEAPON])
 
                 # Eventually apply consumables for the player, right now they go into inventory
                 elif(self.colliders[pos].data.type == DataTypes.CONSUMABLE):
@@ -76,8 +71,8 @@ class CollisionSystem(sdl2.ext.Applicator):
                     self.colliders.pop(pos)
 
                     print("Adding: " + consumable)
-                    self.player.playerdata.equppied[Equippable.CONSUMABLE] = consumable
-                    print("Current consumable: ", self.player.playerdata.equppied[Equippable.CONSUMABLE])
+                    self.player.playerdata.equipped[Equippable.CONSUMABLE] = consumable
+                    print("Current consumable: ", self.player.playerdata.equipped[Equippable.CONSUMABLE])
 
                 # Iunno why we'd do anything if it's pathable
                 elif(self.colliders[pos].data.type == DataTpes.PATHABLE):
