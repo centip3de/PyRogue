@@ -32,8 +32,6 @@ def main():
 
     # Create the spirte factory and the sprite for the player
     factory         = sdl2.ext.SpriteFactory(sdl2.ext.SOFTWARE)
-    food_sprite     = factory.from_color(sdl2.ext.Color(255, 255, 255), size = (32, 32))
-    weapon_sprite   = factory.from_color(sdl2.ext.Color(175, 175, 175), size = (32, 32))
     sprite          = factory.from_surface(sdl2.ext.load_image(RESOURCES.get_path('player.png')))
 
     # Create the worl and spriterenderer system
@@ -59,14 +57,9 @@ def main():
     gridSystem = GridSystem(960, 640, player)
     world.add_system(gridSystem)
 
-    # Test items
-    food    = Item(world, food_sprite, 500, 500, DataTypes.CONSUMABLE, "Sandwich")
-    weapon  = Item(world, weapon_sprite, 300, 300, DataTypes.UNPATHABLE, "Axe")
-
     # Colliders for said items
-    collision.colliders.append(food)
-    collision.colliders.append(weapon)
     collision.player = player
+    collision.grid   = grid
 
     # Main event loop
     running = True
@@ -95,6 +88,7 @@ def main():
                     d = Direction.WEST
 
                 if d != None:
+                    collision.player_dir = d
                     player.walk(grid, d)
 
         sdl2.SDL_Delay(10)

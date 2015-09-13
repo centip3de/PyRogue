@@ -2,6 +2,7 @@ import sdl2.ext
 
 from entities.Item import DataTypes
 from components.Velocity import Velocity
+from grid.constants import Direction
 
 # This gross thing handles all our collision, for now.
 class CollisionSystem(sdl2.ext.Applicator):
@@ -12,6 +13,9 @@ class CollisionSystem(sdl2.ext.Applicator):
         self.colliders      = []
         self.collided       = []
         self.player         = None
+        self.player_dir     = None
+        self.grid           = None
+
         self.minx           = minx
         self.miny           = miny
         self.maxx           = maxx
@@ -62,36 +66,20 @@ class CollisionSystem(sdl2.ext.Applicator):
                     self.player.playerdata.inventory.append(consumable)
                     print("Current inventory: ", self.player.playerdata.inventory)
 
+                # Iunno why we'd do anything if it's pathable
+                elif(self.colliders[pos].data.type == DataTpes.PATHABLE):
+                    pass
 
+                # Deal with unpathables
                 elif(self.colliders[pos].data.type == DataTypes.UNPATHABLE):
-                    sprite_x, sprite_y = self.player.sprite.position
-                    sprite_h, sprite_w = self.player.sprite.size
+                    if(self.player_dir == Direction.NORTH):
+                        self.player.walk(self.grid, Direction.SOUTH)
 
-                    object_x, object_y = self.colliders[pos].sprite.position
-                    object_h, object_w = self.colliders[pos].sprite.size
+                    elif(self.player_dir == Direction.WEST):
+                        self.player.walk(self.gird, Direction.EAST)
 
-                    new_x, new_y = 0, 0
+                    elif(self.player_dir == Direction.EAST):
+                        self.player.walk(self.grid, Direction.EAST)
 
-                    if(object_x > sprite_x):
-                        print("Object X is bigger than Sprite X")
-                        new_y = sprite_y
-                        new_x = object_x - sprite_w
-
-                    elif(object_x < sprite_x):
-                        print("Object X is smaller than Sprite X")
-                        new_y = sprite_y
-                        new_x = object_x + object_w
-
-                    if(object_y > sprite_y):
-                        print("Object Y is bigger than Sprite Y")
-                        new_y = object_y - sprite_h
-                        new_x = sprite_x
-
-                    elif(object_y < sprite_y):
-                        print("Object Y is smaller than Sprite Y")
-                        new_y = object_y + object_h
-                        new_x = sprite_x
-
-                    self.player.sprite.position = (new_x, new_y)
-
-
+                    elif(self.player_dir == Direction.SOUTH):
+                        self.player.walk(self.grid, Direction.NORTH)

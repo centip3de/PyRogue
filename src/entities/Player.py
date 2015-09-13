@@ -1,7 +1,7 @@
 import sdl2.ext
 
 from components.Velocity import Velocity
-from components.PlayerData import PlayerData
+from entities.PlayerData import PlayerData
 from components.Position import Position
 
 class Player(sdl2.ext.Entity):
