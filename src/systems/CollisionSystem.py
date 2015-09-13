@@ -8,7 +8,7 @@ from grid.constants import Direction
 # This gross thing handles all our collision, for now.
 class CollisionSystem(sdl2.ext.Applicator):
 
-    def __init__(self, minx, miny, maxx, maxy):
+    def __init__(self):
         super(CollisionSystem, self).__init__()
         self.componenttypes = Velocity, sdl2.ext.Sprite
         self.colliders      = []
@@ -16,11 +16,6 @@ class CollisionSystem(sdl2.ext.Applicator):
         self.player         = None
         self.player_dir     = None
         self.grid           = None
-
-        self.minx           = minx
-        self.miny           = miny
-        self.maxx           = maxx
-        self.maxy           = maxy
 
     # Detects if any item is overlapping any other. If it is, it sets the flag in collided at the items position in colliders.
     def _overlap(self, item):

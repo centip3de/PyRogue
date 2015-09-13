@@ -34,7 +34,7 @@ def main():
     world           = sdl2.ext.World()
     spriterenderer  = SoftwareRenderer(window)
     movement        = MovementSystem(0, 0, 800, 600)
-    collision       = CollisionSystem(0, 0, 800, 600)
+    collision       = CollisionSystem()
 
     # Add all systems to the world
     world.add_system(collision)
